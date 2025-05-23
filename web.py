@@ -27,7 +27,7 @@ def load_data(actual_file, predicted_file):
     )
     return merged_df
 
-if actual_file and predicted_file:
+if actual_file.empty==False and predicted_file.empty==False:
     df_merged = load_data(actual_file, predicted_file)
 
     # Sidebar Filters
