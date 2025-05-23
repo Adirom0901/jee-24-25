@@ -8,13 +8,13 @@ st.set_page_config(layout="wide")
 st.title("Actual vs Predicted JoSAA Closing Ranks (2024 vs 2025)")
 
 # Upload files
-actual_file = st.sidebar.file_uploader("Upload Actual 2024 CSV", type=["csv"])
-predicted_file = st.sidebar.file_uploader("Upload Predicted 2025 Excel", type=["xlsx"])
+actual_file =pd.read_csv('josaa_closing_ranks_2024.csv')
+predicted_file = pd.read_excel('cr_25_corrected (1).xlsx')
 
 @st.cache_data
 def load_data(actual_file_obj, predicted_file_obj):
-    actual_df = pd.read_csv(actual_file_obj)
-    predicted_df = pd.read_excel(predicted_file_obj)
+    actual_df =actual_file_obj
+    predicted_df = predicted_file_obj
 
     actual_df.rename(columns={"Closing Rank": "Actual Closing Rank"}, inplace=True)
     predicted_df.rename(columns={"Closing Rank 2025": "Predicted Closing Rank 2025"}, inplace=True)
