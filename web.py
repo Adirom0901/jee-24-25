@@ -28,7 +28,7 @@ def load_data(actual_file_obj, predicted_file_obj):
     return merged_df
 
 # Proceed if both files are uploaded
-if actual_file and predicted_file:
+if True:
     df_merged = load_data(actual_file, predicted_file)
 
     # Sidebar filters
