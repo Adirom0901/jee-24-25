@@ -58,7 +58,7 @@ else:
 
     # Bar chart
     st.subheader("📈 Comparison Chart")
-    fig, ax = plt.subplots(figsize=(20, 10))
+    fig, ax = plt.subplots(figsize=(20, 20))
     index = np.arange(len(df_filtered))
     width = 0.35
 
