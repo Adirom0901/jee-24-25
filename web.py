@@ -7,7 +7,14 @@ import matplotlib.ticker as ticker
 # Page layout
 st.set_page_config(layout="wide")
 st.title("📊 Actual vs Predicted JoSAA Closing Ranks (2024 vs 2025)")
-
+st.markdown(
+    """
+    <a href="https://collegemap.in/" target="_blank">
+        <img src="https://collegemap.in/static/media/collegeMapLogo.a38ff4563b8339e9f214.png" alt="Company Logo" style="height:100px;">
+    </a>
+    """,
+    unsafe_allow_html=True
+)
 # Load files directly
 actual_file = pd.read_csv('josaa_closing_ranks_2024.csv')
 predicted_file = pd.read_excel('cr_25_corrected (1).xlsx')
