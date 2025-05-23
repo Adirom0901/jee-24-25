@@ -56,7 +56,7 @@ if True:
     if df_filtered.empty:
         st.warning("⚠️ No data available for the selected filters.")
     else:
-        fig, ax = plt.subplots(figsize=(20, 40))
+        fig, ax = plt.subplots(figsize=(20, 20))
         index = np.arange(len(df_filtered))
         width = 0.3
 
