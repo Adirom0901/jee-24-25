@@ -8,13 +8,13 @@ st.set_page_config(layout="wide")
 st.title("Actual vs Predicted JoSAA Closing Ranks (2024 vs 2025)")
 
 # Upload files
-actual_file = pd.read_csv('josaa_closing_ranks_2024.csv')
-predicted_file = pd.read_excel('cr_25_corrected (1).xlsx')
+actual_file = st.sidebar.file_uploader("Upload Actual 2024 CSV", type=["csv"])
+predicted_file = st.sidebar.file_uploader("Upload Predicted 2025 Excel", type=["xlsx"])
 
 @st.cache_data
-def load_data(actual_file, predicted_file):
-    actual_df = pd.read_csv(actual_file)
-    predicted_df = pd.read_excel(predicted_file)
+def load_data(actual_file_obj, predicted_file_obj):
+    actual_df = pd.read_csv(actual_file_obj)
+    predicted_df = pd.read_excel(predicted_file_obj)
 
     actual_df.rename(columns={"Closing Rank": "Actual Closing Rank"}, inplace=True)
     predicted_df.rename(columns={"Closing Rank 2025": "Predicted Closing Rank 2025"}, inplace=True)
@@ -27,10 +27,11 @@ def load_data(actual_file, predicted_file):
     )
     return merged_df
 
-if actual_file.empty==False and predicted_file.empty==False:
+# Proceed if both files are uploaded
+if actual_file and predicted_file:
     df_merged = load_data(actual_file, predicted_file)
 
-    # Sidebar Filters
+    # Sidebar filters
     institutes = df_merged["Institute"].unique()
     seat_types = df_merged["Seat Type"].unique()
     genders = df_merged["Gender"].unique()
@@ -39,12 +40,13 @@ if actual_file.empty==False and predicted_file.empty==False:
     selected_seat_type = st.sidebar.selectbox("Select Seat Type", sorted(seat_types))
     selected_gender = st.sidebar.selectbox("Select Gender", sorted(genders))
 
-    # Filter Data
+    # Filtered data
     df_filtered = df_merged[
         (df_merged["Institute"] == selected_institute) &
         (df_merged["Seat Type"] == selected_seat_type) &
         (df_merged["Gender"] == selected_gender)
     ]
+
     df_filtered["Actual Closing Rank"] = pd.to_numeric(df_filtered["Actual Closing Rank"], errors='coerce')
     df_filtered["Predicted Closing Rank 2025"] = pd.to_numeric(df_filtered["Predicted Closing Rank 2025"], errors='coerce')
 
@@ -75,3 +77,4 @@ if actual_file.empty==False and predicted_file.empty==False:
         st.pyplot(fig)
 else:
     st.info("👈 Please upload both the actual and predicted rank files to begin.")
+
